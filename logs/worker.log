@@ -1,0 +1,294 @@
+2024-10-07 10:29:06,270 Worker rq:worker:16e7967b4c774e92be688b0ccdeb924d started with PID 3644, version 1.16.2
+2024-10-07 10:29:06,270 Subscribing to channel rq:pubsub:16e7967b4c774e92be688b0ccdeb924d
+2024-10-07 10:29:06,271 *** Listening on Users-vaishnavi-Documents-frappe-user_authentication_bench:short, Users-vaishnavi-Documents-frappe-user_authentication_bench:default, Users-vaishnavi-Documents-frappe-user_authentication_bench:long...
+2024-10-07 10:29:06,271 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:short
+2024-10-07 10:29:06,272 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:default
+2024-10-07 10:29:06,272 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:long
+2024-10-07 10:30:22,558 Worker 16e7967b4c774e92be688b0ccdeb924d [PID 3644]: warm shut down requested
+2024-10-07 10:30:22,565 Unsubscribing from channel rq:pubsub:16e7967b4c774e92be688b0ccdeb924d
+
+:: Error 61 connecting to 127.0.0.1:11000. Connection refused. ::
+
+Context:
+ File '/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py', line 283
+
+ 278:                 lambda: self._connect(), lambda error: self.disconnect(error)
+ 279:             )
+ 280:         except socket.timeout:
+ 281:             raise TimeoutError("Timeout connecting to server")
+ 282:         except OSError as e:
+ 283>             raise ConnectionError(self._error_message(e))
+ 284: 
+ 285:         self._sock = sock
+ 286:         try:
+ 287:             if self.redis_connect_func is None:
+ 288:                 # Use the default on_connect function
+
+Full traceback:
+Traceback (most recent call last):
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 277, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 278, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 639, in _connect
+    raise err
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 627, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/utils/bench_helper.py", line 47, in invoke
+    return super().invoke(ctx)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/commands/scheduler.py", line 206, in start_worker
+    start_worker(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/utils/background_jobs.py", line 314, in start_worker
+    worker.work(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 458, in work
+    self.teardown()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 1049, in teardown
+    self.unsubscribe()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 626, in unsubscribe
+    self.pubsub.unsubscribe()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 957, in unsubscribe
+    return self.execute_command("UNSUBSCRIBE", *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 773, in execute_command
+    self._execute(connection, connection.send_command, *args, **kwargs)
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 816, in _execute
+    return conn.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 65, in call_with_retry
+    fail(error)
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 818, in <lambda>
+    lambda error: self._disconnect_raise_connect(conn, error),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 805, in _disconnect_raise_connect
+    raise error
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 817, in <lambda>
+    lambda: command(*args, **kwargs),
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 476, in send_command
+    self.send_packed_command(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 446, in send_packed_command
+    self.connect()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 283, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:11000. Connection refused.
+
+Error 61 connecting to 127.0.0.1:11000. Connection refused.
+2024-10-08 11:18:01,629 Worker rq:worker:4d5ca8d9ef794e00b84d6cea3f811157 started with PID 6692, version 1.16.2
+2024-10-08 11:18:01,629 Subscribing to channel rq:pubsub:4d5ca8d9ef794e00b84d6cea3f811157
+2024-10-08 11:18:01,630 *** Listening on Users-vaishnavi-Documents-frappe-user_authentication_bench:short, Users-vaishnavi-Documents-frappe-user_authentication_bench:default, Users-vaishnavi-Documents-frappe-user_authentication_bench:long...
+2024-10-08 11:18:01,630 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:short
+2024-10-08 11:18:01,631 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:default
+2024-10-08 11:18:01,632 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:long
+2024-10-08 11:18:35,539 Worker 4d5ca8d9ef794e00b84d6cea3f811157 [PID 6692]: warm shut down requested
+2024-10-08 11:18:35,542 Unsubscribing from channel rq:pubsub:4d5ca8d9ef794e00b84d6cea3f811157
+
+:: Error 61 connecting to 127.0.0.1:11000. Connection refused. ::
+
+Context:
+ File '/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py', line 283
+
+ 278:                 lambda: self._connect(), lambda error: self.disconnect(error)
+ 279:             )
+ 280:         except socket.timeout:
+ 281:             raise TimeoutError("Timeout connecting to server")
+ 282:         except OSError as e:
+ 283>             raise ConnectionError(self._error_message(e))
+ 284: 
+ 285:         self._sock = sock
+ 286:         try:
+ 287:             if self.redis_connect_func is None:
+ 288:                 # Use the default on_connect function
+
+Full traceback:
+Traceback (most recent call last):
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 277, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 278, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 639, in _connect
+    raise err
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 627, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/utils/bench_helper.py", line 47, in invoke
+    return super().invoke(ctx)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/commands/scheduler.py", line 206, in start_worker
+    start_worker(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/utils/background_jobs.py", line 314, in start_worker
+    worker.work(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 458, in work
+    self.teardown()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 1049, in teardown
+    self.unsubscribe()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 626, in unsubscribe
+    self.pubsub.unsubscribe()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 957, in unsubscribe
+    return self.execute_command("UNSUBSCRIBE", *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 773, in execute_command
+    self._execute(connection, connection.send_command, *args, **kwargs)
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 816, in _execute
+    return conn.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 65, in call_with_retry
+    fail(error)
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 818, in <lambda>
+    lambda error: self._disconnect_raise_connect(conn, error),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 805, in _disconnect_raise_connect
+    raise error
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 817, in <lambda>
+    lambda: command(*args, **kwargs),
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 476, in send_command
+    self.send_packed_command(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 446, in send_packed_command
+    self.connect()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 283, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:11000. Connection refused.
+
+Error 61 connecting to 127.0.0.1:11000. Connection refused.
+2024-10-08 13:23:48,663 Worker rq:worker:891f7a52f7c84da09b308d5c26c16fa9 started with PID 49744, version 1.16.2
+2024-10-08 13:23:48,663 Subscribing to channel rq:pubsub:891f7a52f7c84da09b308d5c26c16fa9
+2024-10-08 13:23:48,664 *** Listening on Users-vaishnavi-Documents-frappe-user_authentication_bench:short, Users-vaishnavi-Documents-frappe-user_authentication_bench:default, Users-vaishnavi-Documents-frappe-user_authentication_bench:long...
+2024-10-08 13:23:48,664 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:short
+2024-10-08 13:23:48,665 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:default
+2024-10-08 13:23:48,666 Cleaning registries for queue: Users-vaishnavi-Documents-frappe-user_authentication_bench:long
+2024-10-08 13:23:55,351 Worker 891f7a52f7c84da09b308d5c26c16fa9 [PID 49744]: warm shut down requested
+2024-10-08 13:23:55,359 Unsubscribing from channel rq:pubsub:891f7a52f7c84da09b308d5c26c16fa9
+
+:: Error 61 connecting to 127.0.0.1:11000. Connection refused. ::
+
+Context:
+ File '/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py', line 283
+
+ 278:                 lambda: self._connect(), lambda error: self.disconnect(error)
+ 279:             )
+ 280:         except socket.timeout:
+ 281:             raise TimeoutError("Timeout connecting to server")
+ 282:         except OSError as e:
+ 283>             raise ConnectionError(self._error_message(e))
+ 284: 
+ 285:         self._sock = sock
+ 286:         try:
+ 287:             if self.redis_connect_func is None:
+ 288:                 # Use the default on_connect function
+
+Full traceback:
+Traceback (most recent call last):
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 277, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 278, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 639, in _connect
+    raise err
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 627, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/utils/bench_helper.py", line 47, in invoke
+    return super().invoke(ctx)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/commands/scheduler.py", line 206, in start_worker
+    start_worker(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/apps/frappe/frappe/utils/background_jobs.py", line 314, in start_worker
+    worker.work(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 458, in work
+    self.teardown()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 1049, in teardown
+    self.unsubscribe()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/rq/worker.py", line 626, in unsubscribe
+    self.pubsub.unsubscribe()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 957, in unsubscribe
+    return self.execute_command("UNSUBSCRIBE", *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 773, in execute_command
+    self._execute(connection, connection.send_command, *args, **kwargs)
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 816, in _execute
+    return conn.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 65, in call_with_retry
+    fail(error)
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 818, in <lambda>
+    lambda error: self._disconnect_raise_connect(conn, error),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 805, in _disconnect_raise_connect
+    raise error
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/client.py", line 817, in <lambda>
+    lambda: command(*args, **kwargs),
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 476, in send_command
+    self.send_packed_command(
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 446, in send_packed_command
+    self.connect()
+  File "/Users/vaishnavi/Documents/frappe/user_authentication_bench/env/lib/python3.12/site-packages/redis/connection.py", line 283, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:11000. Connection refused.
+
+Error 61 connecting to 127.0.0.1:11000. Connection refused.
